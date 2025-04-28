@@ -1,0 +1,133 @@
+/* Improved CreateAccount.css */
+
+.create-account-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    /* Changed to use variables for better consistency and theming */
+  }
+  
+  .account-form {
+    width: 100%;
+    max-width: 450px; /* Increased max-width for larger screens */
+    background-color: #f9f9f9; /* Slightly softer background color */
+    padding: 2.5rem; /* Slightly increased padding */
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Added smooth transition */
+  }
+  
+  .account-form:hover {
+    transform: translateY(-4px); /* Slight lift on hover */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Increased shadow on hover */
+  }
+  
+  .floating-label {
+    position: relative;
+    margin-bottom: 2rem; /* Increased margin-bottom for spacing */
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 1.1rem; /* Slightly increased padding */
+    border: 1px solid #ddd; /* Lighter border */
+    border-radius: 8px; /* More rounded corners */
+    font-size: 1rem;
+    background-color: white;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .input-field:focus {
+    outline: none;
+    border-color: #4CAF50; /* Changed focus border color to green */
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); /* Matching focus shadow */
+  }
+  
+  .input-label {
+    position: absolute;
+    top: -0.5rem; /* Adjusted label position */
+    left: 1rem;
+    background-color: #f9f9f9; /* Label background matches form background */
+    padding: 0 0.3rem; /* Slightly increased label padding */
+    font-size: 0.9rem;
+    color: #888; /* Slightly darker label color */
+    pointer-events: none;
+    transition: transform 0.2s ease-in-out, font-size 0.2s ease-in-out, color 0.2s ease-in-out; /* Added label transitions */
+  }
+  
+  .input-field:focus ~ .input-label,
+  .input-field:not(:placeholder-shown) ~ .input-label {
+    transform: translateY(-1.5rem) scale(0.8);
+    font-size: 0.75rem; /* Smaller label when focused or filled */
+    color: #4CAF50; /* Label color matches focus border */
+  }
+  
+  .toggle-visibility {
+    position: absolute;
+    top: 1rem; /* Adjusted button position */
+    right: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #aaa; /* Lighter toggle icon color */
+    font-size: 1.2rem;
+    transition: color 0.2s ease-in-out; /* Added smooth transition */
+  }
+  
+  .toggle-visibility:hover {
+    color: #555; /* Darker hover color for toggle */
+  }
+
+  
+.link-hover {
+  position: relative;
+}
+.link-hover::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+.link-hover:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+  
+  .submit-button {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #4CAF50; /* Changed button color to green */
+    color: white;
+    font-size: 1.1rem; /* Slightly increased font size */
+    border: none;
+    border-radius: 8px; /* More rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.1s ease; /* Added transform transition */
+  }
+  
+  .submit-button:hover {
+    background-color: #45a049; /* Darker shade of green on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+  }
+  
+  .submit-button:active {
+    transform: translateY(0);
+    background-color: #388e3c;
+  }
+  
+  .success-animation .success-circle {
+      width: 80px; /* Increased size of the circle */
+      height: 80px;
+  }
+  
+  .success-animation .success-checkmark {
+      font-size: 3rem; /* Increased size of the checkmark */
+  }
+  
