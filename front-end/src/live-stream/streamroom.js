@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
-import { LIVESTREAM_APP_ID, lIVESTREAM_SECRET } from "../Config";
+import { LIVESTREAM_APP_ID, LIVESTREAM_SECRET } from "../Config";
 import "./streamroom.css";
 
 function randomID(len) {
@@ -36,7 +36,7 @@ function StreamRoom() {
 
 
     const appID = LIVESTREAM_APP_ID;
-    const serverSecret = lIVESTREAM_SECRET;
+    const serverSecret = LIVESTREAM_SECRET;
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomId, randomID(5), name);
 
     // start the call
