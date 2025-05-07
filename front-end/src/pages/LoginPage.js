@@ -102,6 +102,7 @@ const LoginPage = () => {
       });
 
       const data = await response.json();
+      const user = data.user;
 
       if (response.ok) {
         Swal.fire({
@@ -112,6 +113,10 @@ const LoginPage = () => {
           showConfirmButton: false,
         }).then(() => {
           // You can add navigation logic here if needed.
+          console.log('Data : ', data);
+          console.log('User : - ', user);
+          sessionStorage.setItem('username', user.email);
+          sessionStorage.setItem('user', JSON.stringify(user));
           navigate('/home');
         });
       } else {
@@ -162,7 +167,7 @@ const LoginPage = () => {
                       if (email && !isValidEmail(email)) setError('Please enter a valid email address');
                       else if (error && error.includes('valid email')) setError('');
                     }}
-                   
+
                   />
                   <label className="floating-label text-gray-500 px-1 ml-3 bg-white">Email address</label>
                   {error && error.includes('valid email') && <div className="error-message text-red-500 text-sm show">{error}</div>}

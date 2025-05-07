@@ -99,6 +99,7 @@ const ChangePassword = () => {
   };
 
   return (
+  <div className="page-container">
     <div className="glass-form">
       <div className="progress-bar">
         <div className="step" data-active={step >= 1}></div>
@@ -147,6 +148,7 @@ const ChangePassword = () => {
 
       
     </div>
+  </div>
   );
 };
 

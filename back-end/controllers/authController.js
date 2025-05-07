@@ -61,6 +61,7 @@ const loginUser = async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
+        gender:user.gender
       },
       // token: 'your_generated_jwt_token_here', // Consider adding JWT later
     });
@@ -70,7 +71,48 @@ const loginUser = async (req, res) => {
   }
 };
 
+const getProfile = async (req, res) =>{
+  const email = req.params.id;
+  try{
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ message: 'User not found' });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    res.status(500).json({ message: 'Error fetching user profile', error: error.message });
+  }
+}
+
+const updateProfile = async (req, res) =>{
+  const email = req.params.id;
+  const { firstName, lastName, gender, newEmail } = req.body;
+  try {
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      { firstName, lastName, gender, email: newEmail },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({
+      message: 'Profile updated successfully',
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    res.status(500).json({ message: 'Error updating user profile', error: error.message });
+  }
+}
+
 module.exports = {
   registerUser,
   loginUser,
+  getProfile,
+  updateProfile
 };

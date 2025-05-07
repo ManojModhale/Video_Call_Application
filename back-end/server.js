@@ -30,11 +30,13 @@ app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 
 // Connect to MongoDB
+/*
 mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 5000, // Avoid long wait times
-})
+})*/
+mongoose.connect(uri)
     .then(() => {
         console.log('Connected to MongoDB');
     })

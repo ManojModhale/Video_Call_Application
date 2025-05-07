@@ -15,6 +15,21 @@ function CallRoom() {
 
   // Initialize ZegoUIKit and join room on component mount
   const myMeeting = (type) => {
+    if (zpRef.current) {
+      zpRef.current.destroy(); // Clean up any existing instance before initializing a new one
+      zpRef.current = null;
+    }
+
+    if (!videoContainerRef.current) {
+      console.error("Video container is null!");
+      return;
+    }
+
+    if (!roomId) {
+      console.error("Invalid Room ID!");
+      return;
+    }
+
     const appID = VIDEOCALL_APP_ID;
     const serverSecret = VIDEOCALL_SECRET;
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
@@ -33,12 +48,8 @@ function CallRoom() {
       sharedLinks: [
         {
           name: "Video Call Link",
-          url:
-            window.location.protocol +
-            "//" +
-            window.location.host +
-            window.location.pathname +
-            "?type=" + encodeURIComponent(type),
+          url: `${window.location.protocol}//${window.location.host}${window.location.pathname}?type=${encodeURIComponent(type)}`,
+          
         },
       ],
       scenario: {
@@ -51,18 +62,25 @@ function CallRoom() {
       onJoinRoom: () => {
         setJoined(true);
       },
-      onLeaveRoom: () => {
-        navigate("/");
-      },
+      onLeaveRoom: () => handleExit(),
+      onReturnToHomeScreenClicked: () => handleExit(),
     });
   };
 
   // Handle exit from the room
   const handleExit = () => {
     if (zpRef.current) {
-      zpRef.current.destroy();
+      try {
+        zpRef.current.destroy(); // Destroy the ZegoUIKitPrebuilt instance
+        zpRef.current = null;
+      } catch (err) {
+        console.error("Error during zpRef destroy:", err);
+      }
     }
-    navigate("/home");
+    // Add a slight delay before navigating to ensure cleanup is complete
+    setTimeout(() => {
+      navigate("/home");
+    }, 100); // 100ms delay
   };
 
   // On component mount, extract call type from location and initialize meeting
@@ -82,10 +100,15 @@ function CallRoom() {
     // Cleanup function for component unmount
     return () => {
       if (zpRef.current) {
-        zpRef.current.destroy();
+        try {
+          zpRef.current.destroy(); // Safely destroy the instance
+          zpRef.current = null;
+        } catch (err) {
+          console.error("Error during cleanup:", err); // Log cleanup errors
+        }
       }
     };
-  }, [callType, roomId, navigate]);
+  }, [callType, roomId]); //, navigate
 
   return (
     <div className="room-container">
